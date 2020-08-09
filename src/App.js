@@ -1,25 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  ThemeProvider,
+  createMuiTheme,
+  CssBaseline,
+  makeStyles,
+} from '@material-ui/core';
+
+import PomodoroClock from './components/PomodoroClock';
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
+
+const useStyles = makeStyles({
+  root: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    maxWidth: 500,
+    display: 'grid',
+    gridRowGap: theme.spacing(3),
+    justifyContent: 'center',
+    alignContent: 'center',
+
+  }
+});
 
 function App() {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className={classes.root}>
+        <div className={classes.container}>
+          <Header />
+          <PomodoroClock />
+          <Footer />
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
