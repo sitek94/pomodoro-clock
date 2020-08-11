@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: 'repeat(3, 1fr)',
     justifyItems: 'center',
     alignItems: 'center',
-    padding: theme.spacing(2, 0)
+    padding: theme.spacing(2, 0),
   },
   label: {
     gridColumn: '1 / span 3',
@@ -20,18 +20,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TimeControl({ label, value }) {
+const INCREMENT_VALUE = 1;
+
+export default function TimeControl({ label, value, onArrowClick }) {
   const classes = useStyles();
+
+  const handleIncrement = () => {
+    onArrowClick(value + INCREMENT_VALUE);
+  }
+
+  const handleDecrement = () => {
+    onArrowClick(value - INCREMENT_VALUE);
+  }
 
   return (
     <div className={classes.root}>
-      <Typography variant="h6" className={classes.label}>{label} time</Typography>
+      <Typography 
+        className={classes.label} 
+        variant="h6" 
+        id={`${label}-label`}
+      >
+        {label} length
+      </Typography>
 
-      <IconButton aria-label={`decrease ${label} time`}>
+      <IconButton 
+        id={`${label}-decrement`}
+        aria-label={`decrease ${label} time`}
+        onClick={handleDecrement}
+      >
         <ArrowDownwardIcon fontSize="large" />
       </IconButton>
-      <Typography variant="h4">{value}</Typography>
-      <IconButton aria-label={`increase ${label} time`}>
+
+      <Typography 
+        id={`${label}-length`}
+        variant="h4">
+        {value}
+      </Typography>
+
+      <IconButton 
+        id={`${label}-increment`}
+        aria-label={`increase ${label} time`}
+        onClick={handleIncrement}
+      >
         <ArrowUpwardIcon fontSize="large" />
       </IconButton>
     </div>

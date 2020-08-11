@@ -16,10 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fontSize: 46,
+    
   },
   svg: {
     // Align the tomato with the text
     transform: 'translateY(4px)',
+    color: theme.palette.error.main
   },
 }));
 
@@ -34,7 +36,7 @@ export default function Header() {
         {/* Insert break line for screens below 500px  */}
         {matches ? <br /> : " " }
         Cl
-        <Icon color="secondary" className={classes.icon}>
+        <Icon className={classes.icon}>
           <GiTomato className={classes.svg} />
         </Icon>
         ck
