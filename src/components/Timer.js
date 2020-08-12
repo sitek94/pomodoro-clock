@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles, Typography, Box } from '@material-ui/core';
+
+import { mmss } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,21 +20,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Timer({ value, phase }) {
   const classes = useStyles();
 
-  const bgColor = {
-    pause: null,
-    break: 'success.main',
-    session: 'primary.main',
-  };
+  if (value < 0 || value > 3600) {
+    console.error(`value ${value} is not in range 0-3600`);
+  }
 
-  const label = {
-    pause: 'Tomatoes are waiting!',
-    break: 'Break',
-    session: 'Session',
-  };
+  const bgColor = phase === 'break' ? 'success.main' : 'primary.main';
+  const label = phase === 'break' ? 'Break' : 'Session';
 
   return (
     <Box
-      bgcolor={bgColor[phase]}
+      bgcolor={bgColor}
       className={classes.root}
     >
       <Typography
@@ -40,7 +38,7 @@ export default function Timer({ value, phase }) {
         variant="h4"
         component="h3"
       >
-        {label[phase]}
+        {label}
       </Typography>
  
       <Typography id="time-left" variant="h1" component="h2">
@@ -49,12 +47,8 @@ export default function Timer({ value, phase }) {
     </Box>
   );
 }
-
-// Format seconds 
-function mmss(value) {
-  let minutes = Math.floor(value / 60);
-  let seconds = value - minutes * 60;
-  seconds = seconds < 10 ? '0' + seconds : seconds;
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  return minutes + ':' + seconds;
+Timer.propTypes = {
+  value: PropTypes.number.isRequired,
+  phase: PropTypes.string.isRequired,
 }
+

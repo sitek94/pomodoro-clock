@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import IconButton from '@material-ui/core/IconButton';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -20,17 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const INCREMENT_VALUE = 1;
-
-export default function TimeControl({ label, value, onArrowClick }) {
+export default function TimeControl({ label, value, onIncrement, onDecrement }) {
   const classes = useStyles();
 
   const handleIncrement = () => {
-    onArrowClick(value + INCREMENT_VALUE);
+    onIncrement();
   }
 
   const handleDecrement = () => {
-    onArrowClick(value - INCREMENT_VALUE);
+    onDecrement();
   }
 
   return (
@@ -66,4 +65,10 @@ export default function TimeControl({ label, value, onArrowClick }) {
       </IconButton>
     </div>
   );
+}
+TimeControl.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  onDecrement: PropTypes.func.isRequired,
+  onIncrement: PropTypes.func.isRequired,
 }

@@ -17,31 +17,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Controls({
-  onStartClick,
-  onPauseClick,
-  onStopClick,
-  phase
-}) {
+export default function Controls({ phase }) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const color = phase === 'break' ? theme.palette.success.main : theme.palette.primary.main;
+  const color =
+    phase === 'break' ? theme.palette.success.main : theme.palette.primary.main;
 
   return (
     <div className={classes.root}>
-      <IconButton
-        aria-label="start the timer"
-        onClick={onStartClick}
-      >
+      <IconButton aria-label="start the timer">
         <PlayArrowIcon fontSize="large" style={{ color }} />
       </IconButton>
-      
-      <IconButton
-        aria-label="stop the timer"
-        onClick={onStopClick}
-      >
-        <LoopIcon fontSize="large" style={{ color }}/>
+
+      <IconButton aria-label="stop the timer">
+        <LoopIcon fontSize="large" style={{ color }} />
       </IconButton>
     </div>
   );
