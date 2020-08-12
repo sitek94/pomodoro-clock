@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Timer({ value, phase }) {
   const classes = useStyles();
-  
-  
 
   const bgColor = {
     pause: null,
@@ -30,8 +28,6 @@ export default function Timer({ value, phase }) {
     break: 'Break',
     session: 'Session',
   };
-  
-  const parsedValue = mmss(value);
 
   return (
     <Box
@@ -46,22 +42,19 @@ export default function Timer({ value, phase }) {
       >
         {label[phase]}
       </Typography>
+ 
       <Typography id="time-left" variant="h1" component="h2">
-        {value}
+        {mmss(value)}
       </Typography>
     </Box>
   );
 }
 
 // Format seconds 
-function mmss(seconds) {
-  let minutes = Math.floor(seconds / 60);
-  if (minutes < 10) {
-    minutes = '0' + minutes;
-  }
-  seconds = Math.floor(seconds % 60);
-  if (seconds < 10) {
-    seconds = '0' + seconds;
-  }
-  return `${minutes}:${seconds}`;
+function mmss(value) {
+  let minutes = Math.floor(value / 60);
+  let seconds = value - minutes * 60;
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  return minutes + ':' + seconds;
 }
