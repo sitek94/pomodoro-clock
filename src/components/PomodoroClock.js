@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paper, makeStyles } from '@material-ui/core';
-import usePhase from '../hooks/usePhase';
-import TimeControl from './TimeControl';
-import Controls from './Controls';
+
+import Control from './Control';
+import Buttons from './Buttons';
 import Timer from './Timer';
 
 const useStyles = makeStyles({
@@ -16,47 +16,49 @@ const useStyles = makeStyles({
 export default function PomodoroClock() {
   const classes = useStyles();
 
-  const [breakLength, setBreakLength] = useState(5);
+  // SESSION
   const [sessionLength, setSessionLength] = useState(25);
-
-  const [activePhase, setActivePhase] = useState('session');
-  const [timerValue, setTimerValue] = useState(1500);
-  const [timerState, setTimerState] = useState('stopped');
-  const [intervalId, setIntervalId] = useState(null);
-
-  const handleBreakIncrement = () => {
-    if (breakLength === 60 || timerState === 'running') return;
-
-    setBreakLength((prevBreakLength) => prevBreakLength + 1);
-  };
-
-  const handleBreakDecrement = () => {
-    if (breakLength === 1 || timerState === 'running') return;
-
-    setBreakLength((prevBreakLength) => prevBreakLength - 1);
-  };
-
-  const handleSessionIncrement = () => {
+  const incrementSessionLength = () => {
     if (sessionLength === 60 || timerState === 'running') return;
 
     setSessionLength((prevSessionLength) => prevSessionLength + 1);
     setTimerValue((sessionLength + 1) * 60);
   };
-
-  const handleSessionDecrement = () => {
+  const decrementSessionLength = () => {
     if (sessionLength === 1 || timerState === 'running') return;
 
     setSessionLength((prevSessionLength) => prevSessionLength - 1);
     setTimerValue((sessionLength - 1) * 60);
   };
+  
+  // BREAK
+  const [breakLength, setBreakLength] = useState(5);
+  const incrementBreakLength = () => {
+    if (breakLength === 60 || timerState === 'running') return;
 
+    setBreakLength((prevBreakLength) => prevBreakLength + 1);
+  };
+  const decrementBreakLength = () => {
+    if (breakLength === 1 || timerState === 'running') return;
+
+    setBreakLength((prevBreakLength) => prevBreakLength - 1);
+  };
+  
+  // TIMER
+  const [timerValue, setTimerValue] = useState(1500);
+  const [activePhase, setActivePhase] = useState('session');
+  const [timerState, setTimerState] = useState('stopped');
+  const [intervalId, setIntervalId] = useState(null);
+
+  // Start/Stop button click
   const handleStartStopClick = () => {
     if (timerState === 'running') {
       setTimerState('stopped');
-
       clearInterval(intervalId);
     } else {
       setTimerState('running');
+
+      // Set interval and store its ID in intervalId piece of state
       setIntervalId(
         setInterval(() => {
           setTimerValue((prevTimerValue) => prevTimerValue - 1);
@@ -66,6 +68,8 @@ export default function PomodoroClock() {
   };
 
   useEffect(() => {
+    // When timer reaches zero
+    // Clear the interval, update active phase and timer value
     if (timerValue === 0) {
       if (activePhase === 'session') {
         setTimerValue(sessionLength * 60);
@@ -79,7 +83,7 @@ export default function PomodoroClock() {
   }, [setTimerValue, timerValue, activePhase, intervalId, sessionLength, breakLength])
 
   // Reset
-  const handleResetClick = () => {
+  const resetTimer = () => {
     if (timerState === 'stopped') return;
 
     clearInterval(intervalId);
@@ -92,24 +96,25 @@ export default function PomodoroClock() {
 
   return (
     <Paper className={classes.root}>
-      <TimeControl
+      <Control
         label="break"
         value={breakLength}
-        onArrowUpClick={handleBreakIncrement}
-        onArrowDownClick={handleBreakDecrement}
+        onArrowUpClick={incrementBreakLength}
+        onArrowDownClick={decrementBreakLength}
       />
-      <TimeControl
+      <Control
         label="session"
         value={sessionLength}
-        onArrowUpClick={handleSessionIncrement}
-        onArrowDownClick={handleSessionDecrement}
+        onArrowUpClick={incrementSessionLength}
+        onArrowDownClick={decrementSessionLength}
       />
 
       <Timer value={timerValue} phase="session" />
-      <Controls
+      <Buttons
+        phase={activePhase}
         timerState={timerState}
         onStartStopClick={handleStartStopClick}
-        onResetClick={handleResetClick}
+        onResetClick={resetTimer}
       />
     </Paper>
   );
