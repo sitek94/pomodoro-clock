@@ -21,17 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Control({
-  label,
-  value,
+export default function Session({
+  sessionLength,
   onArrowUpClick,
   onArrowDownClick,
 }) {
   const classes = useStyles();
-
-  if (value) {
-
-  }
 
   const handleIncrement = () => {
     onArrowUpClick();
@@ -42,33 +37,21 @@ export default function Control({
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.label} variant="h6" id={`${label}-label`}>
-        {label} length
+      <Typography className={classes.label} variant="h6" id="session-label">
+        session length
       </Typography>
 
-      <IconButton
-        id={`${label}-decrement`}
-        onClick={handleDecrement}
-      >
+      <IconButton id="session-decrement" onClick={handleDecrement}>
         <ArrowDownwardIcon fontSize="large" />
       </IconButton>
 
-      <Typography id={`${label}-length`} variant="h4">
-        {value}
+      <Typography id="session-length" variant="h4">
+        {sessionLength}
       </Typography>
 
-      <IconButton
-        id={`${label}-increment`}
-        onClick={handleIncrement}
-      >
+      <IconButton id="session-increment" onClick={handleIncrement}>
         <ArrowUpwardIcon fontSize="large" />
       </IconButton>
     </div>
   );
 }
-Control.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  onArrowDownClick: PropTypes.func.isRequired,
-  onArrowUpClick: PropTypes.func.isRequired,
-};

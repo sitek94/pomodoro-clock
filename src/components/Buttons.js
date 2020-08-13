@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Buttons({
   phase,
-  timerState,
+  timerIsRunning,
   onStartStopClick,
   onResetClick,
 }) {
@@ -38,7 +38,7 @@ export default function Buttons({
         aria-label="start/stop the timer"
         onClick={onStartStopClick}
       >
-        {timerState === 'running'
+        {timerIsRunning === 'running'
           ? <PauseIcon fontSize="large" style={{ color }} />
           : <PlayArrowIcon fontSize="large" style={{ color }} />
         }
@@ -56,7 +56,7 @@ export default function Buttons({
 }
 Buttons.propTypes = {
   phase: PropTypes.string.isRequired,
-  timerState: PropTypes.string.isRequired,
+  timerIsRunning: PropTypes.bool.isRequired,
   onStartStopClick: PropTypes.func.isRequired,
   onResetClick: PropTypes.func.isRequired,
 }
