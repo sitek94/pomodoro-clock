@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TimeControl({ label, value, onIncrement, onDecrement }) {
+export default function TimeControl({ label, value, onArrowUpClick, onArrowDownClick }) {
   const classes = useStyles();
 
   const handleIncrement = () => {
-    onIncrement();
+    onArrowUpClick();
   }
 
   const handleDecrement = () => {
-    onDecrement();
+    onArrowDownClick();
   }
 
   return (
@@ -69,6 +69,6 @@ export default function TimeControl({ label, value, onIncrement, onDecrement }) 
 TimeControl.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
-  onDecrement: PropTypes.func.isRequired,
-  onIncrement: PropTypes.func.isRequired,
+  onArrowDownClick: PropTypes.func.isRequired,
+  onArrowUpClick: PropTypes.func.isRequired,
 }

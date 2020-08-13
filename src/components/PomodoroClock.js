@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Paper, makeStyles } from '@material-ui/core';
-import { checkRange } from '../util';
+import usePhase from '../hooks/usePhase';
 import TimeControl from './TimeControl';
 import Controls from './Controls';
 import Timer from './Timer';
@@ -16,39 +16,29 @@ const useStyles = makeStyles({
 export default function PomodoroClock() {
   const classes = useStyles();
 
-  // BREAK
-  const [breakLength, setBreakLength] = useState(5);
-  const handleBreakChange = (value) => {
-    if (checkRange(breakLength + value)) {
-      setBreakLength(brkLength => brkLength + value);
-    }
-  }
-  
+  // Phases
+  const [breakLength, handleBreakLengthChange] = usePhase(5);
+  const [sessionLength, handleSessionLengthChange] = usePhase(25);
 
-  
-
-  // TIMER
-  /* const [timerValue, setTimerValue] = useState(1500);
-  const [pomodoroPhase, setPomodoroPhase] = useState('session');
-  useEffect(() => {
-    setTimerValue(
-      pomodoroPhase === 'session' ? sessionLength * 60 : breakLength * 60
-    );
-  }, [sessionLength, breakLength, pomodoroPhase]); */
+  // Timer
+  const [timerValue, setTimerValue] = usePhase(1500);
 
   return (
     <Paper className={classes.root}>
       <TimeControl
         label="break"
         value={breakLength}
-        onIncrement={() => handleBreakChange(1)}
-        onDecrement={() => handleBreakChange(-1)}
+        onArrowUpClick={() => handleBreakLengthChange(1)}
+        onArrowDownClick={() => handleBreakLengthChange(-1)}
       />
       <TimeControl
         label="session"
- 
+        value={sessionLength}
+        onArrowUpClick={() => handleSessionLengthChange(1)}
+        onArrowDownClick={() => handleSessionLengthChange(-1)}
       />
-      {/* <Timer value={timerValue} phase={pomodoroPhase} /> */}
+
+      <Timer value={timerValue} phase="session" />
       <Controls />
     </Paper>
   );

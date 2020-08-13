@@ -8,7 +8,6 @@ export const mmss = (value) => {
   return `${minutes}:${seconds}`;
 }
 
-export const checkRange = (value) => {
-  if (value >= 0 && value <= 60) return true;
-  return false;
+export const inRange = (value, min, max) => {
+  return value >= min && value <= max;
 }
