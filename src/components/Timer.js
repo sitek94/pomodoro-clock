@@ -20,11 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Timer({ value, phase }) {
   const classes = useStyles();
 
-  if (value < 0 || value > 3600) {
-    console.error(`value ${value} is not in range 0-3600`);
-  }
-
-  const bgColor = phase === 'break' ? 'success.main' : 'primary.main';
+    const bgColor = phase === 'break' ? 'success.main' : 'primary.main';
   const label = phase === 'break' ? 'Break' : 'Session';
 
   return (

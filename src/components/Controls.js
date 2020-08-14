@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Controls({ phase }) {
+export default function Controls({ phase, onStartStop, onReset }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -26,12 +26,21 @@ export default function Controls({ phase }) {
 
   return (
     <div className={classes.root}>
-      <IconButton aria-label="start the timer">
-        <PlayArrowIcon fontSize="large" style={{ color }} />
+      <IconButton
+        id="start_stop"
+        aria-label="start the timer"
+        onClick={onStartStop}
+      >
+        <PlayArrowIcon
+          fontSize="large"
+          style={{ color, transition: 'color .5s' }}
+        />
       </IconButton>
 
-      <IconButton aria-label="stop the timer">
-        <LoopIcon fontSize="large" style={{ color }} />
+      <IconButton 
+        id="reset"
+        aria-label="stop the timer" onClick={onReset}>
+        <LoopIcon fontSize="large" style={{ color, transition: 'color .5s' }} />
       </IconButton>
     </div>
   );
