@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { makeStyles, Typography, Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

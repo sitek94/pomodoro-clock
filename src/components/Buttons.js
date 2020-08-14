@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -44,4 +45,9 @@ export default function Buttons({ phase, onStartStop, onReset }) {
       </IconButton>
     </div>
   );
+}
+Buttons.propTypes = {
+  phase: PropTypes.string.isRequired,
+  onStartStop: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
 }

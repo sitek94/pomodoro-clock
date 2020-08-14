@@ -10,7 +10,7 @@ import PomodoroClock from './components/PomodoroClock';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-const darkTheme = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
@@ -18,8 +18,6 @@ const darkTheme = createMuiTheme({
     }
   },
 });
-
-const lightTheme = createMuiTheme({})
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,8 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const classes = useStyles();
-
-  const [theme, setTheme] = useState(darkTheme);
 
   return (
     <ThemeProvider theme={theme}>
