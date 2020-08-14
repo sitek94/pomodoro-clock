@@ -6,7 +6,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
-import PomodoroClock from './components/PomodoroClock';
+import PomodoroClock from './containers/PomodoroClock';
 import Header from './components/Header';
 import Footer from './components/Footer';
 

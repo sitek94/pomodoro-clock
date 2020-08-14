@@ -18,12 +18,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Buttons({ phase, onStartStop, onReset }) {
+export default function Buttons({ phase, isRunning, onStartStop, onReset }) {
   const classes = useStyles();
   const theme = useTheme();
 
   const color =
     phase === 'break' ? theme.palette.success.main : theme.palette.primary.main;
+
+  const startStopIconProps = {
+    fontSize: 'large',
+    style: { color, transition: 'color .5s' },
+  };
 
   return (
     <div className={classes.root}>
@@ -32,15 +37,15 @@ export default function Buttons({ phase, onStartStop, onReset }) {
         aria-label="start the timer"
         onClick={onStartStop}
       >
-        <PlayArrowIcon
-          fontSize="large"
-          style={{ color, transition: 'color .5s' }}
-        />
+        {/* Change icon accordingly to timer state */}
+        {isRunning ? (
+          <PauseIcon {...startStopIconProps} />
+        ) : (
+          <PlayArrowIcon {...startStopIconProps} />
+        )}
       </IconButton>
 
-      <IconButton 
-        id="reset"
-        aria-label="stop the timer" onClick={onReset}>
+      <IconButton id="reset" aria-label="stop the timer" onClick={onReset}>
         <LoopIcon fontSize="large" style={{ color, transition: 'color .5s' }} />
       </IconButton>
     </div>
@@ -48,6 +53,7 @@ export default function Buttons({ phase, onStartStop, onReset }) {
 }
 Buttons.propTypes = {
   phase: PropTypes.string.isRequired,
+  isRunning: PropTypes.bool.isRequired,
   onStartStop: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
-}
+};

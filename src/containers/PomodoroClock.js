@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import Container from './Container';
-import Buttons from './Buttons';
-import PhaseControl from './PhaseControl';
-import Timer from './Timer';
+import Container from '../components/Container';
+import Buttons from '../components/Buttons';
+import PhaseControl from '../components/PhaseControl';
+import Timer from '../components/Timer';
 import { mmss } from '../util';
 import gong from '../gong.wav';
 
@@ -117,6 +117,7 @@ export default function PomodoroClock() {
       <Timer value={mmss(timerValue)} phase={timerPhase} />
       <Buttons
         phase={timerPhase}
+        isRunning={isRunning}
         onStartStop={isRunning ? stopTimer : startTimer}
         onReset={resetTimer}
       />
