@@ -7,7 +7,3 @@ export const mmss = (value) => {
 
   return `${minutes}:${seconds}`;
 }
-
-export const inRange = (value, min, max) => {
-  return value >= min && value <= max;
-}

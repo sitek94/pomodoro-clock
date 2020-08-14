@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
 export default function PhaseControl({
   label,
   value,
-  onArrowUpClick,
-  onArrowDownClick,
+  onArrowUp,
+  onArrowDown,
 }) {
   const classes = useStyles();
 
   const handleArrowUpClick = () => {
-    onArrowUpClick();
+    onArrowUp();
   };
 
   const handleArrowDownClick = () => {
-    onArrowDownClick();
+    onArrowDown();
   };
 
   return (
@@ -67,6 +67,6 @@ export default function PhaseControl({
 PhaseControl.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
-  onArrowDownClick: PropTypes.func.isRequired,
-  onArrowUpClick: PropTypes.func.isRequired,
+  onArrowDown: PropTypes.func.isRequired,
+  onArrowUp: PropTypes.func.isRequired,
 };

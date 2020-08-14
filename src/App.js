@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ThemeProvider,
   createMuiTheme,
@@ -10,7 +10,7 @@ import PomodoroClock from './components/PomodoroClock';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-const theme = createMuiTheme({
+const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
@@ -19,7 +19,9 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles({
+const lightTheme = createMuiTheme({})
+
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100vw',
     height: '100vh',
@@ -27,24 +29,25 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  container: {
+  layout: {
     maxWidth: 500,
     display: 'grid',
     gridRowGap: theme.spacing(3),
     justifyContent: 'center',
     alignContent: 'center',
-
   }
-});
+}));
 
 function App() {
   const classes = useStyles();
+
+  const [theme, setTheme] = useState(darkTheme);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.root}>
-        <div className={classes.container}>
+        <div className={classes.layout}>
           <Header />
           <PomodoroClock />
           <Footer />

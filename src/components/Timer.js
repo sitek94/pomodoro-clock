@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography, Box } from '@material-ui/core';
 
-import { mmss } from '../util';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     gridColumn: '1 / span 2',
@@ -20,14 +18,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Timer({ value, phase }) {
   const classes = useStyles();
 
-    const bgColor = phase === 'break' ? 'success.main' : 'primary.main';
+  const bgColor = phase === 'break' ? 'success.main' : 'primary.main';
   const label = phase === 'break' ? 'Break' : 'Session';
 
   return (
-    <Box
-      bgcolor={bgColor}
-      className={classes.root}
-    >
+    <Box bgcolor={bgColor} className={classes.root}>
       <Typography
         id="timer-label"
         className={classes.label}
@@ -36,15 +31,14 @@ export default function Timer({ value, phase }) {
       >
         {label}
       </Typography>
- 
+
       <Typography id="time-left" variant="h1" component="h2">
-        {mmss(value)}
+        {value}
       </Typography>
     </Box>
   );
 }
 Timer.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   phase: PropTypes.string.isRequired,
-}
-
+};
