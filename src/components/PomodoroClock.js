@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Paper, makeStyles } from '@material-ui/core';
-import TimeControl from './TimeControl';
+import PhaseControl from './PhaseControl';
 import Controls from './Controls';
 import Timer from './Timer';
 import gong from '../gong.wav';
@@ -23,9 +23,8 @@ export default function PomodoroClock() {
   const [isRunning, setIsRunning] = useState(false);
   const [timerValue, setTimerValue] = useState(1500);
   const [timerPhase, setTimerPhase] = useState('session');
-  
+
   const audioElement = useRef();
-  
 
   useEffect(() => {
     const switchPhase = () => {
@@ -36,8 +35,8 @@ export default function PomodoroClock() {
         setTimerPhase('session');
         setTimerValue(sessionLength * 60);
       }
-    }
-    
+    };
+
     let intervalId;
     if (isRunning && timerValue > 0) {
       intervalId = setInterval(() => {
@@ -55,15 +54,15 @@ export default function PomodoroClock() {
     }
 
     return () => clearInterval(intervalId);
-  }, [isRunning, breakLength, sessionLength, timerValue, timerPhase])
+  }, [isRunning, breakLength, sessionLength, timerValue, timerPhase]);
 
   const startTimer = () => {
     setIsRunning(true);
-  }
+  };
 
   const stopTimer = () => {
     setIsRunning(false);
-  }
+  };
 
   const resetTimer = () => {
     setIsRunning(false);
@@ -73,8 +72,7 @@ export default function PomodoroClock() {
     setSessionLength(25);
     audioElement.current.pause();
     audioElement.current.currentTime = 0;
-  }
-
+  };
 
   const incrementBreakLength = () => {
     if (!isRunning && breakLength < 60) {
@@ -93,25 +91,23 @@ export default function PomodoroClock() {
       setSessionLength(sessionLength + 1);
       setTimerValue(sessionLength * 60 + 60);
     }
-  }
+  };
   const decrementSessionLength = () => {
     if (!isRunning && sessionLength > 1) {
       setSessionLength(sessionLength - 1);
-      setTimerValue(sessionLength * 60 - 60) ;
+      setTimerValue(sessionLength * 60 - 60);
     }
-  }
-
-  
+  };
 
   return (
     <Paper className={classes.root}>
-      <TimeControl
+      <PhaseControl
         label="break"
         value={breakLength}
         onArrowUpClick={incrementBreakLength}
         onArrowDownClick={decrementBreakLength}
       />
-      <TimeControl
+      <PhaseControl
         label="session"
         value={sessionLength}
         onArrowUpClick={incrementSessionLength}
@@ -120,7 +116,7 @@ export default function PomodoroClock() {
 
       <Timer value={timerValue} phase={timerPhase} />
       <audio id="beep" src={gong} ref={audioElement} />
-      <Controls 
+      <Controls
         phase={timerPhase}
         onStartStop={isRunning ? stopTimer : startTimer}
         onReset={resetTimer}
