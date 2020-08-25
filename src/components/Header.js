@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: 'center',
     padding: theme.spacing(3),
+
+    '@media (max-width: 360px)': {
+      padding: 0,
+    }
   },
   icon: {
     fontSize: 46,
@@ -27,14 +31,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
-  const matches = useMediaQuery('(max-width: 500px)');
+  const matches500 = useMediaQuery('(max-width: 500px)');
+  const matches360 = useMediaQuery('(max-width: 360px)');
+  
 
   return (
-    <Paper component="header" className={classes.root}>
+    <Paper component="header" className={classes.root} square>
       <Typography variant="h2" component="h1">
         Pomodoro
         {/* Insert break line for screens below 500px  */}
-        {matches ? <br /> : " " }
+        {matches500 ? <br /> : " " }
         Cl
         <Icon className={classes.icon}>
           <GiTomato className={classes.svg} />

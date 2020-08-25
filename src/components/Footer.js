@@ -13,7 +13,7 @@ export default function Footer() {
   const classes = useStyles();
 
   return (
-    <Paper component="footer" className={classes.root}>
+    <Paper component="footer" className={classes.root} square>
       <Typography color="textSecondary">
         Coded by Maciek Sitkowski in 2020.
       </Typography>

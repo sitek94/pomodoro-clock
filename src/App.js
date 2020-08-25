@@ -21,6 +21,7 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
   root: {
+    minWidth: '320px',
     width: '100vw',
     height: '100vh',
     display: 'flex',
@@ -33,6 +34,11 @@ const useStyles = makeStyles(theme => ({
     gridRowGap: theme.spacing(3),
     justifyContent: 'center',
     alignContent: 'center',
+
+    '@media (max-width: 500px)': {
+      display: 'block',
+      width: '100%',
+    }
   }
 }));
 

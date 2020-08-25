@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
   label: {
     gridColumn: '1 / span 3',
     textTransform: 'uppercase',
+    '@media (max-width: 400px)': {
+      maxWidth: 80,
+      textAlign: 'center',
+    }
   },
 }));
 
