@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fontSize: 46,
-    
   },
   svg: {
     // Align the tomato with the text
@@ -32,8 +31,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const matches500 = useMediaQuery('(max-width: 500px)');
-  const matches360 = useMediaQuery('(max-width: 360px)');
-  
 
   return (
     <Paper component="header" className={classes.root} square>
